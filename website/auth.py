@@ -6,6 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint("auth", __name__)
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -25,11 +26,13 @@ def login():
 
     return render_template("login.html", user=current_user)
 
+
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -39,6 +42,7 @@ def sign_up():
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        role = request.form.get('role')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -54,7 +58,8 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be longer than 7 characters', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(password1))
+            new_user = User(email=email, first_name=first_name,
+                            last_name=last_name, password=generate_password_hash(password1), role=role)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

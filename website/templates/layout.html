@@ -42,6 +42,18 @@
             >Home</a
           >
           <a
+            href="{{ url_for('views.tickets') }}"
+            class="nav-item nav-link"
+            id="tickets"
+            >Tickets</a
+          >
+          <a
+            href="{{ url_for('views.create') }}"
+            class="nav-item nav-link"
+            id="create"
+            >Create</a
+          >
+          <a
             href="{{ url_for('auth.logout') }}"
             class="nav-item nav-link"
             id="logout"
