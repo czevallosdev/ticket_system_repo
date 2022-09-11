@@ -7,12 +7,34 @@ content %}
     <th class="table__cell">{{ header }}</th>
     {% endfor %}
   </tr>
-  {% for row in data %}
+  {% for row in my_tickets %}
+  <tr class="table__row">
+    {% for cell in row %}
+    <td class="table__cell">{{ cell }}</td>
+    {% endfor %}
+    <td> <a href="{{ url_for('views.update', id=row[0]) }}" class="btn btn-outline-warning btn-sm">Update</td>
+    {% if user.role == 'admin' %}
+    <td> <a href="{{ url_for('views.delete', id=row[0]) }}" class="btn btn-outline-danger btn-sm">Delete</td>
+    {% endif %}
+    </tr>
+  {% endfor %}
+</table>
+<div align="right"><a href="{{ url_for('views.create') }}" class="btn btn-primary btn-sm">Create Ticket</a></div>
+</br>
+<h3 align="center">Other Tickets</h3>
+<table class="table">
+  <tr class="table__header">
+    {% for header in headings %}
+    <th class="table__cell">{{ header }}</th>
+    {% endfor %}
+  </tr>
+  {% for row in remaining_tickets %}
   <tr class="table__row">
     {% for cell in row %}
     <td class="table__cell">{{ cell }}</td>
     {% endfor %}
     {% if user.role == 'admin' %}
+    <td> <a href="{{ url_for('views.update', id=row[0]) }}" class="btn btn-outline-warning btn-sm">Update</td>
     <td> <a href="{{ url_for('views.delete', id=row[0]) }}" class="btn btn-outline-danger btn-sm">Delete</td>
     {% endif %}
     </tr>
