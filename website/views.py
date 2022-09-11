@@ -43,12 +43,13 @@ def tickets():
     my_tickets = []
     remaining_tickets = []
     for ticket in tickets:
+        user = db.session.query(User).filter(User.id == ticket.user_id).first()
         if ticket.user_id == current_user.id:
             my_tickets.append(
-                [ticket.id, ticket.user_id, ticket.title, ticket.description, ticket.date_added])
+                [ticket.id, user.email, ticket.title, ticket.description, ticket.date_added])
         else:
             remaining_tickets.append(
-                [ticket.id, ticket.user_id, ticket.title, ticket.description, ticket.date_added])
+                [ticket.id, user.email, ticket.title, ticket.description, ticket.date_added])
 
     return render_template("tickets.html", user=current_user, headings=formatted_headings, my_tickets=my_tickets, remaining_tickets=remaining_tickets)
 
