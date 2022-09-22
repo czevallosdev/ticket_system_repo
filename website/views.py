@@ -15,11 +15,6 @@ def home():
     return render_template("home.html", user=current_user)
 
 
-@views.route("/about/")
-def about():
-    return render_template("about.html", user=current_user)
-
-
 @views.route("/contact/")
 def contact():
     return render_template("contact.html", user=current_user)
