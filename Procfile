@@ -1,1 +1,1 @@
-web: bundle exec rails server -p $PORT
+web: set FLASK_APP=website.webapp && flask run
